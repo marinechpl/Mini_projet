@@ -12,18 +12,16 @@ import java.util.Random;
  */
 public class PlateauDeJeu {
 
-    int longueur;
-    int largeur;
+    int taille;
     Cases[][] plateau;
 
-    public PlateauDeJeu(int longueur, int largeur) {
-        this.longueur = longueur;
-        this.largeur = largeur;
+    public PlateauDeJeu(int taille) {
+        this.taille = taille;
 
-        plateau = new Cases[longueur][largeur];
+        plateau = new Cases[taille][taille];
 
-        for (int i = 0; i < longueur; i++) {
-            for (int j = 0; j < largeur; j++) {
+        for (int i = 0; i < taille; i++) {
+            for (int j = 0; j < taille; j++) {
                 plateau[i][j] = new Cases();
             }
         }
@@ -33,16 +31,37 @@ public class PlateauDeJeu {
     public void placerMine() {
         Random c = new Random();
         for (int i = 0; i < 10; i ++){
-            int ligne = c.nextInt(largeur);
-            int colonne = c.nextInt(longueur);
+            int ligne = c.nextInt(taille);
+            int colonne = c.nextInt(taille);
             plateau[ligne][colonne].affecterMine();
         }
     }
     
-    public void placerChiffres(){
-        for (int i=1; i<longueur-1; i++){
-            for (int j=1; j<largeur-1; j++){
-                if (plateau[i][j].presenceMine()==true){
+    public void placerChiffres(){           
+        for (int i=0; i<taille-1; i++){
+            for (int j=0; j<taille-1; j++){
+                if (j==0 && plateau[i][j].presenceMine()==true){
+                    plateau[i+1][j].affecter_1();
+                    plateau[i][j+1].affecter_1();
+                    plateau[i-1][j].affecter_1();
+                    plateau[i+1][j+1].affecter_1();
+                    plateau[i-1][j+1].affecter_1();
+                }
+                else if (j==taille-1 && plateau[i][j].presenceMine()==true){
+                    plateau[i+1][j].affecter_1();
+                    plateau[i-1][j].affecter_1();
+                    plateau[i][j-1].affecter_1();
+                    plateau[i-1][j-1].affecter_1();
+                    plateau[i+1][j-1].affecter_1();
+                }
+                else if (i==0 && plateau[i][j].presenceMine()==true){
+                    plateau[i+1][j].affecter_1();
+                    plateau[i][j+1].affecter_1();
+                    plateau[i][j-1].affecter_1();
+                    plateau[i+1][j+1].affecter_1();
+                    plateau[i+1][j-1].affecter_1();
+                }
+                else if (plateau[i][j].presenceMine()==true){
                     plateau[i+1][j].affecter_1();
                     plateau[i][j+1].affecter_1();
                     plateau[i-1][j].affecter_1();
@@ -57,9 +76,9 @@ public class PlateauDeJeu {
     }
 
     public void afficherPlateau() {
-        for (int i = longueur - 1; i >= 0; i--) {
+        for (int i = taille-1; i >= 0; i--) {
             System.out.print("\n");
-            for (int j = 0; j < largeur; j++) {
+            for (int j = 0; j < taille; j++) {
                 System.out.print(plateau[i][j]);
             }
         }
