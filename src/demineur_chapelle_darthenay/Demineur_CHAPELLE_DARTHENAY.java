@@ -16,7 +16,7 @@ public class Demineur_CHAPELLE_DARTHENAY {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        PlateauDeJeu essai = new PlateauDeJeu(10);
+        PlateauDeJeu essai = new PlateauDeJeu(15);
         essai.placerMine();
         essai.placerChiffres();
         essai.afficherPlateau();

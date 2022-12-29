@@ -39,22 +39,193 @@ public class PlateauDeJeu {
     }
 
     public void placerChiffres() {
-        for (int i = 1; i < taille-1; i++) {
-            for (int j = 1; j < taille-1; j++) {
+        //for (int i = 0; i < taille; i++) {
+        //for (int j = 0; j < taille; j++) {
+
+// coin (0;0)
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < 1; j++) {
                 nb = 0;
-                if (plateau[i+1][j].presenceMine() == true) {
+                if (plateau[i + 1][j].presenceMine() == true) {
                     nb += 1;
                 }
+                if (plateau[i][j + 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i + 1][j + 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                plateau[i][j].affecterChiffre(nb);
+                plateau[i][j].pres_chiffre();
+            }
+        }
+
+// coin (taille;taille)
+        for (int i = taille-1; i < taille; i++) {
+            for (int j = taille-1; j < taille; j++) {
+                nb = 0;
+                if (plateau[i - 1][j].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i][j - 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i - 1][j - 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                plateau[i][j].affecterChiffre(nb);
+                plateau[i][j].pres_chiffre();
+            }
+        }
+//coin (0;taille)                
+        for (int i = 0; i < 1; i++) {
+            for (int j = taille-1; j < taille; j++) {
+                nb = 0;
+                if (plateau[i + 1][j].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i][j - 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i + 1][j - 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                plateau[i][j].affecterChiffre(nb);
+                plateau[i][j].pres_chiffre();
+            }
+        }
+//coin (taille;0)
+        for (int i = taille-1; i < taille; i++) {
+            for (int j = 0; j < 1; j++) {
+                nb = 0;
+                if (plateau[i][j + 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i - 1][j].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i - 1][j + 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                plateau[i][j].affecterChiffre(nb);
+                plateau[i][j].pres_chiffre();
+
+            }
+        }
+        
+//première ligne i=0
+        for (int i = 0; i < 1; i++) {
+            for (int j = 1; j < taille-1; j++) {
+                nb = 0;
+                if (plateau[i + 1][j].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i][j + 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i][j - 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i + 1][j + 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i + 1][j - 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                plateau[i][j].affecterChiffre(nb);
+                plateau[i][j].pres_chiffre();
+
+            }
+        }
+// dernière ligne i = taille 
+        for (int i = taille-1; i<taille; i++) {
+            for (int j = 1; j < taille-1; j++) {
+                nb = 0;
                 if (plateau[i][j+1].presenceMine() == true) {
                     nb += 1;
                 }
-                if (plateau[i-1][j].presenceMine() == true) {
+                if (plateau[i - 1][j].presenceMine() == true) {
                     nb += 1;
                 }
-                if (plateau[i][j-1].presenceMine() == true) {
+                if (plateau[i][j - 1].presenceMine() == true) {
                     nb += 1;
                 }
-                if (plateau[i + 1][j+1].presenceMine() == true) {
+                if (plateau[i - 1][j - 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i - 1][j + 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                plateau[i][j].affecterChiffre(nb);
+                plateau[i][j].pres_chiffre();
+
+            }
+        }
+        //premiere colonne j=0
+        for (int j = 0; j < 1; j++) {
+            for (int i = 1; i < taille - 1; i++) {
+                nb = 0;
+                if (plateau[i + 1][j].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i][j + 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i - 1][j].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i + 1][j + 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i - 1][j + 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                plateau[i][j].affecterChiffre(nb);
+                plateau[i][j].pres_chiffre();
+
+            }
+        }
+        //Dernière colonne j=taille 
+        for (int j = taille-1; j < taille; j++) {
+            for (int i = 1; i < taille - 1; i++) {
+                nb = 0;
+                if (plateau[i + 1][j].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i - 1][j].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i][j - 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i - 1][j - 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i + 1][j - 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                plateau[i][j].affecterChiffre(nb);
+                plateau[i][j].pres_chiffre();
+
+            }
+        }
+
+        for (int i = 1; i < taille - 1; i++) {
+            for (int j = 1; j < taille - 1; j++) {
+                nb = 0;
+                if (plateau[i + 1][j].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i][j + 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i - 1][j].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i][j - 1].presenceMine() == true) {
+                    nb += 1;
+                }
+                if (plateau[i + 1][j + 1].presenceMine() == true) {
                     nb += 1;
                 }
                 if (plateau[i - 1][j - 1].presenceMine() == true) {
@@ -68,9 +239,9 @@ public class PlateauDeJeu {
                 }
                 plateau[i][j].affecterChiffre(nb);
                 plateau[i][j].pres_chiffre();
-
             }
         }
+
     }
 
     public void afficherPlateau() {
