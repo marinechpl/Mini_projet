@@ -116,7 +116,7 @@ public class Cases {
             return (GREEN + "" +chiffre+" " + ANSI_RESET) ;
         }
         else if (pres_drapeau()==true){
-            return("D ");
+            return("? ");
             
         }else if (pres_kit()==true){
             return ("K");

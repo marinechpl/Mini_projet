@@ -23,13 +23,13 @@ public class Jeu {
 
         switch (c) {
             case 1: {
-                Partie essai = new Partie(5, 10, 3);
+                Partie jeu1 = new Partie(5, 10, 3);
             }
             case 2: {
-                Partie essai = new Partie(10, 15, 4);
+                Partie jeu1 = new Partie(10, 15, 4);
             }
             case 3: {
-                Partie essai = new Partie(20, 25, 7);
+                Partie jeu1 = new Partie(20, 25, 7);
             }
             case 4: {
                 int mines;
@@ -41,20 +41,20 @@ public class Jeu {
                 mines = sc.nextInt();
                 System.out.println("Entrez un nombre de kits");
                 kits = sc.nextInt();
-                Partie essai = new Partie(taille, mines, kits);
+                Partie jeu1 = new Partie(taille, mines, kits);
             }
             default: {
                 System.out.println("Refaite un choix valable");
                 c = sc.nextInt();
                 switch (c) {
                     case 1: {
-                        Partie essai = new Partie(5, 10, 3);
+                        Partie jeu1 = new Partie(5, 10, 3);
                     }
                     case 2: {
-                        Partie essai = new Partie(10, 15, 4);
+                        Partie jeu1 = new Partie(10, 15, 4);
                     }
                     case 3: {
-                        Partie essai = new Partie(20, 25, 7);
+                        Partie jeu1 = new Partie(20, 25, 7);
                     }
                     case 4: {
                         int mines;
@@ -74,7 +74,7 @@ public class Jeu {
                 c = sc.nextInt();
                 switch (c) {
                     case 1: {
-                        Jeu essai = new Jeu();
+                        Jeu jeu1 = new Jeu();
                     }
                     case 2: {
                         break;

@@ -363,7 +363,7 @@ public class PlateauDeJeu {
                     System.out.print(plateau[i][j]);
                 } 
                 else if (plateau[i][j].pres_drapeau() == true) {
-                    System.out.print(PURPLE + "D " + ANSI_RESET);
+                    System.out.print(PURPLE + "? " + ANSI_RESET);
                 } 
                 else if (plateau[i][j].case_decouv() != true) {
                     System.out.print(WHITE + "X " + ANSI_RESET);

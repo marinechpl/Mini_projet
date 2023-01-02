@@ -17,9 +17,7 @@ public class Demineur_CHAPELLE_DARTHENAY {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        Jeu essai = new Jeu();
-        
-        //System.out.println(essai);
+        Jeu jeu1 = new Jeu();
     }
     
 }
