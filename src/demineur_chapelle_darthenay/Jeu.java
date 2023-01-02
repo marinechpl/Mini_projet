@@ -12,9 +12,9 @@ public class Jeu {
     Partie jeu;
     
     public Jeu(){
-        System.out.println ("Vous avez plusieurs jeux possibles : \n 1.Facile : Plateau 5x5 avec 10 Mines et 3 Kits "
-                + "\n 2.Moyen : Plateau 10x10, avec 15 Mines et 4 Kits" +"\n 3.Difficile : Plateau 20x20 avec 25 Mines et 7 Kits "
-                + "\n 4.Personnalise" + "\nQuel niveau voulez-vous ?");
+        System.out.println ("Vous avez plusieurs jeux possibles : \n 1. Facile : Plateau 5x5 avec 10 Mines et 3 Kits "
+                + "\n 2. Moyen : Plateau 10x10 avec 15 Mines et 4 Kits" +"\n 3. Difficile : Plateau 20x20 avec 25 Mines et 7 Kits "
+                + "\n 4. Personnalise" + "\nQuel niveau voulez-vous ?");
         Scanner sc = new Scanner(System.in);
         int c = sc.nextInt();
         
