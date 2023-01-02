@@ -12,7 +12,9 @@ public class Cases {
     boolean mines;
     int chiffre;
     boolean pres_chiff;
-
+    boolean cases;
+    
+    
     public Cases() {
     }
     
@@ -24,6 +26,9 @@ public class Cases {
         }
     }
     
+    public int valeur (){
+        return this.chiffre;
+    }
        
     public boolean affecterMine(){
         this.mines = true;
@@ -40,10 +45,20 @@ public class Cases {
         return chiffre;
     }
     
+    public boolean decouvrirCase(){
+        cases=true;
+        return cases;
+    }
     
+    public boolean case_decouv(){
+        if (cases==true){
+            return true;}
+        else {
+            return false;
+        }
+    }
+   
     
-    
-
     @Override
     public String toString() {
         if (this.presenceMine()==true){
@@ -52,7 +67,7 @@ public class Cases {
             return (" " + chiffre+" ") ;
         }
         else {
-            return " O ";
+            return " " + 0 + " ";
         }
             
     }

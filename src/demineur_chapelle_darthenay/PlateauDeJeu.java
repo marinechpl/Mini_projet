@@ -13,7 +13,7 @@ import java.util.Random;
 public class PlateauDeJeu {
 
     int taille;
-    int nb;
+
     Cases[][] plateau;
     int nb_mines;
 
@@ -36,7 +36,7 @@ public class PlateauDeJeu {
         for (int i = 0; i < nb_mines; i++) {
             int ligne = c.nextInt(taille);
             int colonne = c.nextInt(taille);
-            while (plateau[ligne][colonne].presenceMine()==true){
+            while (plateau[ligne][colonne].presenceMine() == true) {
                 ligne = c.nextInt(taille);
                 colonne = c.nextInt(taille);
             }
@@ -45,7 +45,7 @@ public class PlateauDeJeu {
     }
 
     public void placerChiffres() {
-        
+        int nb;
 // coin (0;0)
         for (int i = 0; i < 1; i++) {
             for (int j = 0; j < 1; j++) {
@@ -65,8 +65,8 @@ public class PlateauDeJeu {
         }
 
 // coin (taille;taille)
-        for (int i = taille-1; i < taille; i++) {
-            for (int j = taille-1; j < taille; j++) {
+        for (int i = taille - 1; i < taille; i++) {
+            for (int j = taille - 1; j < taille; j++) {
                 nb = 0;
                 if (plateau[i - 1][j].presenceMine() == true) {
                     nb += 1;
@@ -83,7 +83,7 @@ public class PlateauDeJeu {
         }
 //coin (0;taille)                
         for (int i = 0; i < 1; i++) {
-            for (int j = taille-1; j < taille; j++) {
+            for (int j = taille - 1; j < taille; j++) {
                 nb = 0;
                 if (plateau[i + 1][j].presenceMine() == true) {
                     nb += 1;
@@ -99,7 +99,7 @@ public class PlateauDeJeu {
             }
         }
 //coin (taille;0)
-        for (int i = taille-1; i < taille; i++) {
+        for (int i = taille - 1; i < taille; i++) {
             for (int j = 0; j < 1; j++) {
                 nb = 0;
                 if (plateau[i][j + 1].presenceMine() == true) {
@@ -116,10 +116,10 @@ public class PlateauDeJeu {
 
             }
         }
-        
+
 //première ligne i=0
         for (int i = 0; i < 1; i++) {
-            for (int j = 1; j < taille-1; j++) {
+            for (int j = 1; j < taille - 1; j++) {
                 nb = 0;
                 if (plateau[i + 1][j].presenceMine() == true) {
                     nb += 1;
@@ -142,10 +142,10 @@ public class PlateauDeJeu {
             }
         }
 // dernière ligne i = taille 
-        for (int i = taille-1; i<taille; i++) {
-            for (int j = 1; j < taille-1; j++) {
+        for (int i = taille - 1; i < taille; i++) {
+            for (int j = 1; j < taille - 1; j++) {
                 nb = 0;
-                if (plateau[i][j+1].presenceMine() == true) {
+                if (plateau[i][j + 1].presenceMine() == true) {
                     nb += 1;
                 }
                 if (plateau[i - 1][j].presenceMine() == true) {
@@ -190,7 +190,7 @@ public class PlateauDeJeu {
             }
         }
 //Dernière colonne j=taille 
-        for (int j = taille-1; j < taille; j++) {
+        for (int j = taille - 1; j < taille; j++) {
             for (int i = 1; i < taille - 1; i++) {
                 nb = 0;
                 if (plateau[i + 1][j].presenceMine() == true) {
@@ -247,19 +247,57 @@ public class PlateauDeJeu {
         }
 
     }
-    
-    public boolean verifMines(int ligne, int colonne){
+
+    public boolean verifMines(int ligne, int colonne) {
         return plateau[ligne][colonne].presenceMine();
     }
-    
-    public boolean verifChiffres(int ligne, int colonne){
+
+    public boolean verifChiffres(int ligne, int colonne) {
         return plateau[ligne][colonne].pres_chiffre();
     }
 
+    public boolean gagné() {
+        int cases_c = 0;
+        for (int i = 0; i < taille; i++) {
+            for (int j = 0; j < taille; j++) {
+                if (plateau[i][j].case_decouv() == false) {
+                    cases_c = cases_c + 1;
+                }
+            }
+        }
+        if (cases_c != nb_mines) {
+            return false;
+        } else {
+            return true;
+        }
+    }
     
-    
-    
-    
+    public boolean perdu (){
+        boolean partie = false;
+        for (int i = 0; i < taille; i++) {
+            for (int j = 0; j < taille; j++) {
+                if (plateau[i][j].presenceMine()==true && plateau[i][j].case_decouv()==true){
+                    partie = true; 
+                }
+            } 
+        }return partie;
+    }
+
+    public void afficher_cases(int x, int y) {
+        if (plateau[x + 1][y + 1].case_decouv() == true) {
+            //return false;
+        } else if (x > taille + 1 || y > taille + 1 || x < 0 || y < 0) {
+            //return false; 
+        } else {
+            plateau[x][y].decouvrirCase();
+            if (plateau[x][y].presenceMine() != true && plateau[x][y].valeur() != 0) {
+                plateau[x][y].decouvrirCase();
+            } else {
+            }
+
+        }
+    }
+
     public void afficherPlateau() {
         for (int i = taille - 1; i >= 0; i--) {
             System.out.print("\n");

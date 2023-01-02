@@ -5,41 +5,39 @@
 package demineur_chapelle_darthenay;
 
 import java.util.Scanner;
+
 /**
  *
  * @author 33769
  */
 public class Partie {
+
     int lignes;
-    int mines ; 
-    
+    int mines;
 
     public Partie(int lignes, int mines) {
         Scanner sc = new Scanner(System.in);
-        PlateauDeJeu dessous = new PlateauDeJeu (lignes,mines);
-        dessous.placerMine();
-        dessous.placerChiffres();
-        dessous.afficherPlateau();
-        
-        PlateauDeJeu affichage = new PlateauDeJeu (lignes, mines);
-        affichage.afficherPlateau();
-        
-        System.out.println ("Rentrez le numero de la ligne : ");
-        int ligne = sc.nextInt();
-        System.out.println ("Rentrez le numero de la colonne : ");
-        int colonne = sc.nextInt(); 
-        
-        boolean rep = dessous.verifMines(ligne-1, colonne-1);
-        if (rep==true){
-            System.out.println ("il y avait une mine, vous avez perdu");
-        } else if (rep==false){
-            while (dessous.verifChiffres(ligne, colonne)==false){
-                
-            }
+        PlateauDeJeu plateau = new PlateauDeJeu(lignes, mines);
+        plateau.placerMine();
+        plateau.placerChiffres();
+        plateau.afficherPlateau();
+
+        while (plateau.gagné() != true && plateau.perdu() == false) {
+
+            //PlateauDeJeu affichage = new PlateauDeJeu (lignes, mines);
+            //affichage.afficherPlateau();
+            System.out.println("Rentrez le numero de la ligne : ");
+            int ligne = sc.nextInt();
+            System.out.println("Rentrez le numero de la colonne : ");
+            int colonne = sc.nextInt();
+            
+            
+            
+            
+
+            //dessous.afficher_cases(ligne, colonne);
+            //dessous.afficherPlateau();
         }
-        
     }
-    
-    
-    
+
 }
