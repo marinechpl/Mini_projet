@@ -14,6 +14,7 @@ public class Cases {
     boolean pres_chiff;
     boolean cases;
     boolean drapeau=false ;
+    boolean kit_demi; 
     
     
     public Cases() {
@@ -36,6 +37,11 @@ public class Cases {
     // place une mine 
     public boolean affecterMine(){
         this.mines = true;
+        return mines;
+    }
+    
+    public boolean desactiverMine(){
+        this.mines=false;
         return mines;
     }
     
@@ -65,6 +71,20 @@ public class Cases {
             return false;
         }
     }
+    
+    public boolean pres_kit(){
+        if (kit_demi==true){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    
+    public boolean affecterKit(){
+        this.kit_demi = true;
+        return kit_demi;
+    }
+    
    
     //vérifie la présence d'un drapeau 
     public boolean pres_drapeau(){
@@ -75,7 +95,7 @@ public class Cases {
         }
     }
     
-    //pose un drapeau 
+    //pose un drapeau
     public boolean poserDrapeau (){
         this.drapeau = true ; 
         return drapeau;
@@ -86,12 +106,15 @@ public class Cases {
         if (this.presenceMine()==true){
             return " B ";}
         else if (pres_chiff==true){
-            return (" " + chiffre+" ") ;}
+            return (" " + chiffre+" ") ;
+        }
         else if (pres_drapeau()==true){
             return(" D ");
+        }else if (pres_kit()==true){
+            return (" K ");
         }
         else {
-            return " " + 0 + " ";
+            return (" " + 0 + " ");
         }
             
     }

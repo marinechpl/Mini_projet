@@ -13,14 +13,15 @@ import java.util.Random;
 public class PlateauDeJeu {
 
     int taille;
-
     Cases[][] plateau;
     int nb_mines;
+    int nb_kit;
 
     // constructeur du plateau de jeu 
-    public PlateauDeJeu(int taille, int nb_mines) {
+    public PlateauDeJeu(int taille, int nb_mines, int nb_kit) {
         this.taille = taille;
         this.nb_mines = nb_mines;
+        this.nb_kit = nb_kit;
 
         plateau = new Cases[taille][taille];
 
@@ -31,9 +32,8 @@ public class PlateauDeJeu {
         }
 
     }
-    
-    // place les mines au hasard 
 
+    // place les mines au hasard 
     public void placerMine() {
         Random c = new Random();
         for (int i = 0; i < nb_mines; i++) {
@@ -44,6 +44,20 @@ public class PlateauDeJeu {
                 colonne = c.nextInt(taille);
             }
             plateau[ligne][colonne].affecterMine();
+        }
+
+    }
+
+    public void placerKit() {
+        Random c = new Random();
+        for (int i = 0; i < nb_kit; i++) {
+            int ligne = c.nextInt(taille);
+            int colonne = c.nextInt(taille);
+            while (plateau[ligne][colonne].pres_kit() == true) {
+                ligne = c.nextInt(taille);
+                colonne = c.nextInt(taille);
+            }
+            plateau[ligne][colonne].affecterKit();
         }
     }
 
@@ -252,7 +266,6 @@ public class PlateauDeJeu {
 
     }
 
-    
     // vérifie si la partie est gagné : s'il ne reste que les cases contenant des bombes couvertes 
     public boolean gagné() {
         int cases_c = 0;
@@ -269,61 +282,86 @@ public class PlateauDeJeu {
             return true;
         }
     }
-    
-    //vérifie si la partie est perdue : clique sur une bombe 
 
-    public boolean perdu() {
-        boolean partie = false;
+    //vérifie si la partie est perdue : clique sur une bombe 
+    public int perdu(int vie) {
         for (int i = 0; i < taille; i++) {
             for (int j = 0; j < taille; j++) {
                 if (plateau[i][j].presenceMine() == true && plateau[i][j].case_decouv() == true) {
-                    partie = true;
+                    if(plateau[i][j].pres_kit()==true){
+                        plateau[i][j].desactiverMine();
+                        System.out.println("Vous avez desactive une bombe grace a un kit de deminage");
+                        return 5;
+                    }else {
+                        vie = vie - 1;
+                    }
                 }
             }
         }
-        return partie;
+        return vie;
     }
-    
-    public void poser_drap(int x, int y){
+
+    public void poser_drap(int x, int y) {
         plateau[x][y].poserDrapeau();
     }
-    
-    
 
-// affiche les cases contenant les 0 et s'arrête au niveau des chiffres : algorithme de FloodFill
-    public void afficher_cases(int x, int y) {
-        if ((x < 0 || x > taille || y < 0 || y > taille) || plateau[x][y].case_decouv() == true) {
-            System.out.println ("Entrez un numero de case valide ou un numero de case non decouverte");
-            return;
-        }
-        if (x >= 0 && x <= taille-1 && y >= 0 && y <= taille-1 && plateau[x][y].chiffre!=0)  {
-            plateau[x][y].decouvrirCase();
-        }
-        if (x >= 0 && x <=taille-1 && y >= 0 && y <= taille-1 && plateau[x][y].case_decouv() == false){
-            plateau[x][y].decouvrirCase();
-            afficher_cases(x-1, y);
-            afficher_cases(x+1, y);
-            afficher_cases(x, y+1);
-            afficher_cases(x, y-1);
+    public void utiliser_kit(int x, int y) {
+        if (plateau[x][y].presenceMine()) {
+            plateau[x][y].desactiverMine();
         }
     }
 
-    // affiche le plateau 
+// affiche les cases contenant les 0 et s'arrête au niveau des chiffres : algorithme de FloodFill
+    public int afficher_cases(int x, int y, int nb_kit) {
+        if ((x < 0 || x > taille - 1 || y < 0 || y > taille - 1) || plateau[x][y].case_decouv() == true) {
+            return nb_kit;
+
+        } else if (x >= 0 && x <= taille - 1 && y >= 0 && y <= taille - 1 && plateau[x][y].chiffre != 0) {
+            if (plateau[x][y].pres_kit()) {
+                nb_kit = nb_kit + 1;
+            }
+            plateau[x][y].decouvrirCase();
+        } else if (x >= 0 && x <= taille - 1 && y >= 0 && y <= taille - 1 && plateau[x][y].case_decouv() == false) {
+            if (plateau[x][y].pres_kit()) {
+                plateau[x][y].decouvrirCase();
+                afficher_cases(x - 1, y, nb_kit);
+                afficher_cases(x + 1, y, nb_kit);
+                afficher_cases(x, y + 1, nb_kit);
+                afficher_cases(x, y - 1,nb_kit);
+                nb_kit = nb_kit + 1;
+            } else {
+                plateau[x][y].decouvrirCase();
+                afficher_cases(x - 1, y, nb_kit);
+                afficher_cases(x + 1, y,nb_kit);
+                afficher_cases(x, y + 1, nb_kit);
+                afficher_cases(x, y - 1, nb_kit);
+            }
+
+        }
+        return nb_kit;
+    }
+
+    // affiche le plateau   
     public void afficherPlateau() {
         for (int i = taille - 1; i >= 0; i--) {
             System.out.print("\n");
             for (int j = 0; j < taille; j++) {
+                
                 if (plateau[i][j].case_decouv() == true) {
                     System.out.print(plateau[i][j]);
-                }else if ( plateau[i][j].pres_drapeau()== true){
+                    
+                } else if (plateau[i][j].pres_drapeau() == true) {
                     System.out.print(" D ");
-                }
-                else {
+                    
+                } //else if (plateau[i][j].pres_kit() == true) {
+                    //System.out.print(" K ");
+                    
+                //} 
+                else if (plateau[i][j].case_decouv() != true) {
                     System.out.print(" X ");
                 }
             }
         }
     }
-    
 
 }
