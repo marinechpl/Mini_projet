@@ -1,6 +1,9 @@
 package demineur_chapelle_darthenay;
 
+import static demineur_chapelle_darthenay.Cases.ANSI_RESET;
+import static demineur_chapelle_darthenay.Cases.RED;
 import java.util.Random;
+import java.io.*;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -288,12 +291,13 @@ public class PlateauDeJeu {
         for (int i = 0; i < taille; i++) {
             for (int j = 0; j < taille; j++) {
                 if (plateau[i][j].presenceMine() == true && plateau[i][j].case_decouv() == true) {
-                    if(plateau[i][j].pres_kit()==true){
+                    if (plateau[i][j].pres_kit() == true) {
                         plateau[i][j].desactiverMine();
                         System.out.println("Vous avez desactive une bombe grace a un kit de deminage");
                         return 5;
-                    }else {
+                    } else {
                         vie = vie - 1;
+
                     }
                 }
             }
@@ -327,12 +331,12 @@ public class PlateauDeJeu {
                 afficher_cases(x - 1, y, nb_kit);
                 afficher_cases(x + 1, y, nb_kit);
                 afficher_cases(x, y + 1, nb_kit);
-                afficher_cases(x, y - 1,nb_kit);
+                afficher_cases(x, y - 1, nb_kit);
                 nb_kit = nb_kit + 1;
             } else {
                 plateau[x][y].decouvrirCase();
                 afficher_cases(x - 1, y, nb_kit);
-                afficher_cases(x + 1, y,nb_kit);
+                afficher_cases(x + 1, y, nb_kit);
                 afficher_cases(x, y + 1, nb_kit);
                 afficher_cases(x, y - 1, nb_kit);
             }
@@ -341,24 +345,28 @@ public class PlateauDeJeu {
         return nb_kit;
     }
 
+    public static final String ANSI_RESET 
+            = "\u001B[0m";
+    public static final String PURPLE
+            = " \u001B[45m "; // pour les drapeaux
+    public static final String WHITE
+            = " \u001B[47m ";
+    
+
     // affiche le plateau   
     public void afficherPlateau() {
+
         for (int i = taille - 1; i >= 0; i--) {
             System.out.print("\n");
             for (int j = 0; j < taille; j++) {
-                
-                if (plateau[i][j].case_decouv() == true) {
+                if (plateau[i][j].case_decouv() == true ) {
                     System.out.print(plateau[i][j]);
-                    
-                } else if (plateau[i][j].pres_drapeau() == true) {
-                    System.out.print(" D ");
-                    
-                } //else if (plateau[i][j].pres_kit() == true) {
-                    //System.out.print(" K ");
-                    
-                //} 
+                } 
+                else if (plateau[i][j].pres_drapeau() == true) {
+                    System.out.print(PURPLE + "D " + ANSI_RESET);
+                } 
                 else if (plateau[i][j].case_decouv() != true) {
-                    System.out.print(" X ");
+                    System.out.print(WHITE + "X " + ANSI_RESET);
                 }
             }
         }

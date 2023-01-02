@@ -100,21 +100,29 @@ public class Cases {
         this.drapeau = true ; 
         return drapeau;
     }
+        
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String GREEN
+            = " \u001B[42m "; // pour les chiffres
+    public static final String RED
+            = " \u001B[41m "; // pour les bombes 
     
     @Override
     public String toString() {
         if (this.presenceMine()==true){
-            return " B ";}
+            return (RED + "B " + ANSI_RESET);
+        }
         else if (pres_chiff==true){
-            return (" " + chiffre+" ") ;
+            return (GREEN + "" +chiffre+" " + ANSI_RESET) ;
         }
         else if (pres_drapeau()==true){
-            return(" D ");
+            return("D ");
+            
         }else if (pres_kit()==true){
-            return (" K ");
+            return ("K");
         }
         else {
-            return (" " + 0 + " ");
+            return ("" + 0 + "");
         }
             
     }
